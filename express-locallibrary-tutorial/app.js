@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -9,7 +13,7 @@ var usersRouter = require('./routes/users');
 //so can I define mongoDB as "require(file for mongo stuff?)"
 var app = express();
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb+srv://libraryDB:badPassword@cluster0-j8mpk.mongodb.net/test?retryWrites=true&w=majority' //this WILL fail
+var mongoDB = process.env.DB_ENV //this WILL fail
 mongoose.connect(mongoDB, {useNewUrlParser: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
